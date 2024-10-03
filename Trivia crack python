@@ -1,0 +1,117 @@
+import random
+
+categoria1 = [
+    {"pregunta": "Que le trajo la paloma a Noe?", 
+     "opciones": ["a) Trigo", "b) Olivo ", "c) Oregano", "d) Girasol"], 
+     "respuesta": "b"},
+    {"pregunta": "¿Como se llamaba Nueva York antes de ser conquistada por los ingleses?", 
+     "opciones": ["a) Bogota", "b) Nueva Amsterdam", "c) Nobsa", "d) Barrancabermeja"], 
+     "respuesta": "b"},
+    {"pregunta": "¿En que año se creó Facebook?", 
+     "opciones": ["a) 2007", "b) 2003", "c) 2004", "d) 2001"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Cual de los siguientes NO fue un filosofo de la antigua Grecia?", 
+     "opciones": ["a) Averroes", "b) Aristoteles", "c) Socrates", "d) Platon"], 
+     "respuesta": "a"},
+    {"pregunta": "¿Que periodo Pre-historico hubo una extinción masiva de seres vivos?", 
+     "opciones": ["a) Arcaico", "b) Pre-Hispanico", "c) Permico", "d) Victoriana"], 
+     "respuesta": "c"},
+    {"pregunta": "¿En que año cayo el muro de Berlin?", 
+     "opciones": ["a) 1990", "b) 1967", "c) 1989", "d) 1980"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Que método comúnmente usaban los vikingos para transportarse?", 
+     "opciones": ["a) Barcos", "b) Carros", "c) Aviones", "d) Triciclo"], 
+     "respuesta": "a"},
+    {"pregunta": "¿Quien fue Simon Bolivar?", 
+     "opciones": ["a) Pintor", "b) Escritor", "c) Tecnico", "d) Militar y Politico"], 
+     "respuesta": "d"},
+    {"pregunta": "¿En qué año comenzó la Revolución Francesa?", 
+     "opciones": ["a) 1789", "b) 1776", "c) 1815", "d) 1792"], 
+     "respuesta": "a"},
+    {"pregunta": "¿Qué tratado puso fin a la Primera Guerra Mundial?", 
+     "opciones": ["a) Tratado de Versalles", "b) Tratado de París", "c) Tratado de Tordesillas", "d) Tratado de Utrecht"], 
+     "respuesta": "a"},
+]
+
+categoria2 = [
+    {"pregunta": "¿Cuál es la unidad básica de la vida?", 
+     "opciones": ["a) Átomo", "b) Molécula", "c) Célula", "d) Órgano"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Cómo se llama el proceso por el cual las plantas producen su propio alimento?", 
+     "opciones": ["a) Respiración", "b) Fotosíntesis", "c) Fermentación", "d) Digestión"], 
+     "respuesta": "b"},
+     {"pregunta": "¿Cuál es la molécula que transporta oxígeno en la sangre?", 
+     "opciones": ["a) Glucosa", "b) Hemoglobina", "c) ADN", "d) Clorofila"], 
+     "respuesta": "b"},
+    {"pregunta": "Qué tipo de organismos realizan la fotosíntesis", 
+     "opciones": ["c) Hongos", "b) Animales", "c) Plantas", "d) Bacterias"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Qué estructura celular contiene el material genético?", 
+     "opciones": ["c) Membrana celular", "b) Citoplasma", "c) Núcleo", "d) Ribosomas"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Cuál es el órgano principal del sistema circulatorio humano?", 
+     "opciones": ["a) Hígado", "b) Cerebro", "c) Corazón", "d) Pulmones"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Qué tipo de reproducción implica la unión de gametos?", 
+     "opciones": ["a) Asexual", "b) Clonación", "c) Sexual", "d) Germinación"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Cómo se llama el proceso de división celular que produce células hijas idénticas?", 
+     "opciones": ["a) Meiosis", "b) Mitosis", "c) Fisión binaria", "d) Fragmentación"], 
+     "respuesta": "b"},
+    {"pregunta": "¿Cuál es el principal gas que las plantas absorben para realizar la fotosíntesis?", 
+     "opciones": ["a) Oxígeno", "b) Nitrógeno", "c) Dióxido de carbono", "d) Hidrógeno"], 
+     "respuesta": "c"},
+    {"pregunta": "¿Qué tipo de biomoléculas son los enzimas?", 
+     "opciones": ["a) Carbohidratos", "b) Lípidos", "c) Proteínas", "d) Ácidos nucleicos"], 
+     "respuesta": "c"},
+]
+
+def realizar_pregunta(pregunta):
+    print(pregunta["pregunta"])
+    for opcion in pregunta["opciones"]:
+        print(opcion)
+    respuesta_usuario = input("Escribe la letra de tu respuesta: ").lower()
+    return respuesta_usuario == pregunta["respuesta"]
+
+def juego():
+    nombre = input("Bienvenido al juego de Preguntados. ¿Cuál es tu nombre? ")
+    print(f"Hola {nombre}, comenzaremos con las preguntas.\n")
+
+    random.shuffle(categoria1)
+    random.shuffle(categoria2)
+
+    puntaje = 0
+    preguntas_restantes_cat1 = len(categoria1)
+    preguntas_restantes_cat2 = len(categoria2)
+    total_preguntas = 20
+
+    i = 0
+    while i < total_preguntas:
+        if random.choice([True, False]) and preguntas_restantes_cat1 > 0:
+            pregunta = categoria1[-preguntas_restantes_cat1]
+            preguntas_restantes_cat1 -= 1
+        elif preguntas_restantes_cat2 > 0:
+            pregunta = categoria2[-preguntas_restantes_cat2]
+            preguntas_restantes_cat2 -= 1
+        else:
+            break 
+
+        if realizar_pregunta(pregunta):
+            print("¡Correcto!\n")
+            puntaje += 1
+        else:
+            print(f"Incorrecto\n")
+        i += 1
+        if i < total_preguntas:
+            continuar = input("¿Deseas continuar con la siguiente pregunta? (si/no) ").lower()
+            if continuar != "si":
+                break
+
+    print(f"Has terminado el juego, {nombre}. Respondiste correctamente {puntaje}/{i} preguntas.")
+    if puntaje == total_preguntas:
+        print("¡Felicitaciones, acertaste todas las preguntas!")
+    if puntaje == 0:
+        print("¡No vuelvas a jugar este juego, plox!")
+
+if __name__ == "__main__":
+    juego()
